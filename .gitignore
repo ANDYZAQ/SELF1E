@@ -5,7 +5,7 @@ inference_test_output
 runs/
 runs
 
-*.png
+# *.png
 *.json
 *.diff
 *.jpg

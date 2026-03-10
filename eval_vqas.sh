@@ -1,7 +1,7 @@
-CHECKPOINT="//data/LLM/InternVL3-2B"
-# WEIGHT=""
-# WEIGHT="//home/anqi/code/LISA/runs/adprus_ab/ivl3-2b_iadprn_vlora_seq_cbs_bisca/ckpt_model"
-WEIGHT="/data/xiaokang/LISA/runs/SegWeights/ft_1epoch/ckpt_model"
+# Place the base model weight path here
+CHECKPOINT="***/InternVL3-2B"
+# Place your weight path here
+WEIGHT=""
 
 # DATASET="vqa-vqav2-val"
 # DATASET="vqa-textvqa-val"
