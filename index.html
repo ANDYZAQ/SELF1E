@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="SELF1E: Rethinking MLLM Itself as a Segmenter with a Single Segmentation Token.">
+  <meta name="keywords" content="SELF1E, MLLM, Segmentation, Referring Segmentation">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SELF1E: Rethinking MLLM Itself as a Segmenter with a Single Segmentation Token</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/selfie.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://github.com/UltraDoughnut">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Projects
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://huggingface.co/UltraDoughnut/SELF1E">
+            SELF1E on HuggingFace
+          </a>
+          <a class="navbar-item" href="https://modelscope.cn/models/UltraDoughnut/SELF1E/summary">
+            SELF1E on ModelScope
+          </a>
+          <a class="navbar-item" href="https://weiyc.github.io/">
+            WEI Lab
+          </a>
+          <a class="navbar-item" href="https://mix.jianbojiao.com/">
+            The MIx Group
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">SELF1E: Rethinking MLLM Itself as a Segmenter with a Single Segmentation Token</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <span class="author-block">Anqi Zhang<sup>1,2</sup>,</span>
+            <span class="author-block">
+              <span>Xiaokang Ji</span><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=snmRfqMAAAAJ">Guangyu Gao</a><sup>1*</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://mix.jianbojiao.com/">Jianbo Jiao</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=3IgFTEkAAAAJ">Chi Harold Liu</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://weiyc.github.io/">Yunchao Wei</a><sup>3,4</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>School of Computer Science, Beijing Institute of Technology</span>
+            <span class="author-block"><sup>2</sup>The MIx group, School of Computer Science, University of Birmingham</span>
+            <span class="author-block"><sup>3</sup>WEI Lab, Institute of Information Science, Beijing Jiaotong University</span>
+            <span class="author-block"><sup>4</sup>Beijing Academy of Artificial Intelligence</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper (coming soon)</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv (coming soon)</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/UltraDoughnut/SELF1E"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Hugging Face Models Link. -->
+              <span class="link-block">
+                <a href="https://huggingface.co/UltraDoughnut/SELF1E"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" alt="Hugging Face logo" style="height: 1.1em;">
+                  </span>
+                  <span>Hugging Face</span>
+                  </a>
+              </span>
+              <!-- ModelScope Models Link. -->
+              <span class="link-block">
+                <a href="https://modelscope.cn/models/UltraDoughnut/SELF1E/summary"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-database"></i>
+                  </span>
+                  <span>ModelScope</span>
+                  </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 1.5rem; padding-bottom: 1.5rem;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Highlights</h2>
+        <div class="content has-text-justified">
+          <ul>
+            <li>✅️ No external expert decoder for text-guided referring segmentation.</li>
+            <li>✅️ Only 1 <code>[SEG]</code> token for segmentation.</li>
+            <li>✅️ First method integrating two characteristics above with solid and competitive performance.</li>
+            <li>🚀 Step forward for integrating segmentation ability inside MLLM.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <figure class="image" style="max-width: 45%; margin: 1.5rem auto;">
+        <img src="./static/images/Comparison.png"
+             alt="SELF1E comparison with existing methods">
+      </figure>
+      <h2 class="subtitle has-text-centered" style="margin-top: 1.5rem;">
+        <div class="content has-text-justified">
+          <span class="dnerf">SELF1E</span> unlocks segmentation ability directly from MLLM with a single segmentation token, eliminating the need for external decoders.
+        </div>
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Our project aims to investigate whether and how we can unlock segmentation ability from MLLM itself with one segmentation embedding (SELF1E) while achieving competitive performance, thus eliminating the need for external decoders.
+          </p>
+          <p>
+            First, we retain image features at their original uncompressed resolution, and refill them with residual features extracted from MLLM-processed compressed features, thereby improving feature precision.
+          </p>
+          <p>
+            Subsequently, we integrate pixel-unshuffle operations on image features with and without LLM processing, respectively, to unleash the details of compressed features and amplify the residual features under uncompressed resolution, which further enhances the resolution of refilled features.
+          </p>
+          <p>
+            Moreover, we redesign the attention mask with dual perception pathways, i.e., image-to-image and image-to-segmentation, enabling rich feature interaction between pixels and the segmentation token. SELF1E serves as a step forward in integrating segmentation ability inside MLLM.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-half">
+        <div class="content has-text-centered">
+          <h2 class="title is-4">RFR & RFA</h2>
+          <figure class="image">
+            <img src="./static/images/RFRRFA.png" alt="Resolution refinement pipeline (RFRRFA)">
+          </figure>
+          <!-- <p class="has-text-justified" style="margin-top: 0.75rem;">
+            We retain uncompressed image features and refill them with residual features from MLLM-processed compressed features, then employ pixel-unshuffle operations to boost feature resolution.
+          </p> -->
+        </div>
+      </div>
+      <div class="column is-half">
+        <div class="content has-text-centered">
+          <h2 class="title is-4">Self-Replication</h2>
+          <figure class="image">
+            <img src="./static/images/SelfReplication.png" alt="SELF1E segmentation token interaction">
+          </figure>
+          <!-- <p class="has-text-justified" style="margin-top: 0.75rem;">
+            A single segmentation token interacts with pixels via dual attention pathways (image-to-image and image-to-segmentation), enabling rich feature exchange inside the MLLM without external decoders.
+          </p> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <!-- Visualization. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Visualization</h2>
+        <div class="content has-text-justified">
+          <p>
+            SELF1E produces competitive and interpretable segmentation results across semantic, referring, and reasoning segmentation benchmarks.
+          </p>
+        </div>
+        <figure class="image">
+          <img src="./static/images/Visualizations.png" alt="SELF1E visualizations on multiple datasets">
+        </figure>
+      </div>
+    </div>
+    <!--/ Visualization. -->
+
+    <!-- Performance. -->
+    <div class="columns is-centered" style="margin-top: 2rem;">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Performance</h2>
+        <div class="columns is-multiline">
+          <div class="column is-8">
+            <div class="content has-text-justified">
+              <p>
+                On RefCOCO family benchmarks, SELF1E achieves solid and competitive performance compared with methods that rely on external decoders.
+              </p>
+            </div>
+            <figure class="image">
+              <img src="./static/images/PerformanceRefCOCO.png" alt="Performance of SELF1E on RefCOCO benchmarks">
+            </figure>
+          </div>
+          <div class="column is-4">
+            <div class="content has-text-justified">
+              <p>
+                On ReasonSeg, SELF1E demonstrates strong reasoning segmentation ability using only a single segmentation token.
+              </p>
+            </div>
+            <figure class="image">
+              <img src="./static/images/PerformanceReasonSeg.png" alt="Performance of SELF1E on ReasonSeg benchmark">
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/ Performance. -->
+
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@inproceedings{zhang2026self1e,
+  author    = {Zhang, Anqi and Ji, Xiaokang and Gao, Guangyu and Jiao, Jianbo and Liu, Chi Harold and Wei, Yunchao},
+  title     = {SELF1E: Rethinking MLLM Itself as a Segmenter with a Single Segmentation Token},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  year      = {2026},
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This page is built based on the template of <a
+              href="https://github.com/nerfies/nerfies.github.io">nerfies.github.io</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
