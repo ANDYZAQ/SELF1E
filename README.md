@@ -17,8 +17,12 @@ Xiaokang Ji<sup>1</sup>, &nbsp;
 
 <p align="center">
   <a href="https://huggingface.co/UltraDoughnut/SELF1E">
-    <img src="https://huggingface.co/datasets/huggingface/badges/resolve/main/model-on-hf-sm.svg" alt="Download Model on HF">
+    <img src="https://huggingface.co/datasets/huggingface/badges/resolve/main/model-on-hf-md.svg" alt="Download Model on HF">
   </a>
+  <a href="https://modelscope.cn/models/UltraDoughnut/SELF1E/summary">
+    <img src="https://img.shields.io/badge/Model-Modelscope-8A2BE2?style=for-the-badge&logo=modelscope" alt="Download Model on Modelscope">
+  </a>
+
   <br>
 Paper is accepted by CVPR 2026.
 </p>
