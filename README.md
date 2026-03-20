@@ -22,7 +22,9 @@ Xiaokang Ji<sup>1</sup>, &nbsp;
   <a href="https://modelscope.cn/models/UltraDoughnut/SELF1E/summary">
     <img src="https://img.shields.io/badge/Model-Modelscope-8A2BE2?style=for-the-badge&logo=modelscope" alt="Download Model on Modelscope">
   </a>
-
+  <a href="https://arxiv.org/abs/2603.19026">
+    <img src="https://img.shields.io/badge/arXiv-2603.19026-B31B1B?style=for-the-badge&logo=arXiv" alt="arXiv">
+  </a>
   <br>
 Paper is accepted by CVPR 2026.
 </p>
@@ -209,7 +211,12 @@ Note: DeepSpeed ZoRO-3 optimization is not supported for this method due to the 
 If you find this project useful in your research, please consider citing:
 
 ```
-
+@inproceedings{zhang2026self1e,
+  author = {Zhang, Anqi and Ji, Xiaokang and Gao, Guangyu and Jiao, Jianbo and Liu, Chi Harold and Wei, Yunchao},
+  title = {SELF1E: Rethinking MLLM Itself as a Segmenter with a Single Segmentation Token},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  year = {2026},
+}
 ```
 
 ## Acknowledgement
